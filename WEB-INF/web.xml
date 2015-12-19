@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  id="WebApp_ID" version="2.5">  
+  <display-name>X5 Baas Server</display-name>  
+  <servlet> 
+    <servlet-name>weixin default</servlet-name>  
+    <servlet-class>com.justep.weixin.mp.DefaultServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>weixin default</servlet-name>  
+    <url-pattern>/weixin/default</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>weixin jsapi</servlet-name>  
+    <servlet-class>com.justep.weixin.mp.WxMpJsApiServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>weixin jsapi</servlet-name>  
+    <url-pattern>/weixin/jsapi</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>weixin payNotify</servlet-name>  
+    <servlet-class>com.justep.weixin.mp.WxPayNotifyServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>weixin payNotify</servlet-name>  
+    <url-pattern>/weixin/notify</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>jpush</servlet-name>  
+    <servlet-class>com.justep.jpush.JPushServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>jpush</servlet-name>  
+    <url-pattern>/jpush/push</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>bmap jsapi</servlet-name>  
+    <servlet-class>com.justep.bmap.api.BMapApiServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>bmap jsapi</servlet-name>  
+    <url-pattern>/bmap/api</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>weixin userInfo</servlet-name>  
+    <servlet-class>com.justep.weixin.mp.UserInfoServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>weixin userInfo</servlet-name>  
+    <url-pattern>/weixin/userinfo</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>X5 Baas Demo Servlet</servlet-name>  
+    <servlet-class>com.justep.baas.test.DemoServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>X5 Baas Demo Servlet</servlet-name>  
+    <url-pattern>/demo</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>X5 Baas film Servlet</servlet-name>  
+    <servlet-class>com.justep.baas.film.filmServelet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>X5 Baas film Servlet</servlet-name>  
+    <url-pattern>/film</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>templates test</servlet-name>  
+    <servlet-class>com.justep.templates.Test</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>templates test</servlet-name>  
+    <url-pattern>/test</url-pattern> 
+  </servlet-mapping>  
+  <servlet> 
+    <servlet-name>X5 Baas Dx Servlet</servlet-name>  
+    <servlet-class>com.justep.baas.takeout.DxServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>X5 Baas Dx Servlet</servlet-name>  
+    <url-pattern>/dx</url-pattern> 
+  </servlet-mapping> 
+</web-app>
