@@ -26,9 +26,8 @@ public class DownloadPictureServlet extends HttpServlet {
 
 		// 获取参数
 		String picture = params.getString("picturedata");
-
+		
 		System.out.println(picture);
-
 		try {
 			File picturefile = instance.downloadImage(picture);
 		} catch (WxErrorException e) {

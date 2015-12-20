@@ -22,6 +22,7 @@ import me.chanjar.weixin.mp.api.WxMpMessageHandler;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.WxMpServiceImpl;
+import me.chanjar.weixin.mp.bean.WxMpCustomMessage;
 import me.chanjar.weixin.mp.bean.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.WxMpXmlOutTextMessage;
@@ -108,7 +109,7 @@ public class WxMpServiceInstance {
 		x5Meuns.add(indexPage);
 
 		WxMenuButton demoPage = new WxMenuButton();
-		demoPage.setName("你好");
+		demoPage.setName("你hen好");
 		demoPage.setType(WxConsts.BUTTON_VIEW);
 		demoPage.setUrl("http://x5.justep.com/x5/UI2/takeout/index.w"); 
 		x5Meuns.add(demoPage);
@@ -116,8 +117,7 @@ public class WxMpServiceInstance {
 		WxMenuButton takeout = new WxMenuButton();
 		takeout.setName("外卖案例");
 		takeout.setType(WxConsts.BUTTON_VIEW);
-		takeout.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.getWxMpConfigStorage().getAppId() + "&redirect_uri=http%3A%2F%2Fx5.justep.com%2Fx5%2FUI2%2Ftakeout%2Findex.w&"
-				+ "response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+		takeout.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf7e99c474fcc59f7&redirect_uri=http%3A%2F%2Fbingkuaix3.imwork.net%2Fx5%2FUI2%2Ffilm%2FmainActivity.w&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
 		System.out.println(takeout.getUrl());
 		x5Meuns.add(takeout);
 
@@ -147,10 +147,24 @@ public class WxMpServiceInstance {
 		wxMpMessageRouter.rule().async(false).content("menu").handler(handler).end();
 	}
 	// 下载图片
+	
 	public File downloadImage(String s) throws WxErrorException{
 		//9PxNKlEKWXokU5QpHcyVKxe8-CxMlLlOClQmM6iwicnkttNuP4VDv0YMBPvzxm83
 		File f = wxMpService.mediaDownload(s);
 		System.out.println(f.toPath());
+		//文件原地址 
+		 File oldFile = new File(f.toPath().toString()); 
+		 //文件新（目标）地址 
+		 String newPath = "E:/WeX5_V3.2.1/apache-tomcat/webapps/img/"; 
+		 //new一个新文件夹 
+		 File fnewpath = new File(newPath); 
+		 //判断文件夹是否存在 
+		 if(!fnewpath.exists()) 
+		 fnewpath.mkdirs(); 
+		 //将文件移到新文件里 
+		 File fnew = new File(newPath +s+".jpg"); 
+		 
+		 oldFile.renameTo(fnew); 
 		return f;
 	}
 	public void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -199,5 +213,18 @@ public class WxMpServiceInstance {
 			}
 			return;
 		}
+	}
+
+	public void message(String userid,String doctor_suggestion,String price) {
+		WxMpCustomMessage message = WxMpCustomMessage.TEXT().toUser(userid).content(doctor_suggestion+"应付"+price).build();
+		// 设置消息的内容等信息
+		try {
+			wxMpService.customMessageSend(message);
+		} catch (WxErrorException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		System.out.println("123123");
+		
 	}
 }
