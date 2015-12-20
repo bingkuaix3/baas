@@ -58,6 +58,15 @@
     <servlet-name>weixin userInfo</servlet-name>  
     <url-pattern>/weixin/userinfo</url-pattern> 
   </servlet-mapping>  
+    <servlet> 
+    <servlet-name>weixin downloadpicture</servlet-name>  
+    <servlet-class>com.justep.weixin.mp.DownloadPictureServlet</servlet-class>  
+    <load-on-startup>1</load-on-startup> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>weixin downloadpicture</servlet-name>  
+    <url-pattern>/weixin/downloadpicture</url-pattern> 
+  </servlet-mapping>  
   <servlet> 
     <servlet-name>X5 Baas Demo Servlet</servlet-name>  
     <servlet-class>com.justep.baas.test.DemoServlet</servlet-class>  

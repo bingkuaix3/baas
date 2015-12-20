@@ -1,5 +1,6 @@
 package com.justep.baas.film;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,6 +12,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 
+import me.chanjar.weixin.common.exception.WxErrorException;
+import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.api.WxMpServiceImpl;
+
 import com.alibaba.fastjson.JSONObject;
 import com.justep.baas.data.Table;
 import com.justep.baas.data.Transform;
@@ -21,6 +26,7 @@ public class filmServelet extends HttpServlet {
 
 	private static final String DATASOURCE_TAKEOUT = "jdbc/takeout";
 	private static final String TABLE_TAKEOUT_FOOD = "picture";
+	protected static WxMpService wxMpService;
 	
 	public void service(ServletRequest request, ServletResponse response) throws ServletException {
 		
@@ -32,6 +38,9 @@ public class filmServelet extends HttpServlet {
 				break;
 			case "savefilm":
 				savefilm(request, response);
+				break;
+			case "downloadpicture":
+				downloadpicture(request, response);
 				break;
 			}
 		} catch (SQLException e) {
@@ -46,6 +55,9 @@ public class filmServelet extends HttpServlet {
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
+		} catch (WxErrorException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
 		}
 	}
 	private static void queryfilm(ServletRequest request, ServletResponse response) throws SQLException, IOException, NamingException {
@@ -56,8 +68,7 @@ public class filmServelet extends HttpServlet {
 		Object columns = params.get("columns");
 		Integer limit = params.getInteger("limit");
 		Integer offset = params.getInteger("offset");
-		Object picture= params.get("picture");
-		System.out.println(picture);
+		
 
 		Table table = null;
 		Connection conn = Util.getConnection(DATASOURCE_TAKEOUT);
@@ -91,5 +102,18 @@ public class filmServelet extends HttpServlet {
 		} finally {
 			conn.close();
 		}
+	}
+	
+	private static void downloadpicture(ServletRequest request, ServletResponse response) throws SQLException, IOException, NamingException, WxErrorException {
+		// 参数序列化
+		JSONObject params = (JSONObject) JSONObject.parse(request.getParameter("params"));
+
+		// 获取参数
+		String picture = params.getString("picturedata");
+		
+		System.out.println(picture);
+	 
+		File picturefile =wxMpService.mediaDownload(picture);
+		
 	}
 }

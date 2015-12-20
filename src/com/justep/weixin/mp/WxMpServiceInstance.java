@@ -1,5 +1,6 @@
 package com.justep.weixin.mp;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -76,6 +77,7 @@ public class WxMpServiceInstance {
 			wxMpMessageRouter = new WxMpMessageRouter(wxMpService);
 			this.addTestRouter();
 			this.addMenuRouter();
+
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);
 		}
@@ -123,6 +125,7 @@ public class WxMpServiceInstance {
 		x5Menu.setButtons(x5Meuns);
 		try {
 			wxMpService.menuDelete();
+			
 			wxMpService.menuCreate(x5Menu);
 		} catch (WxErrorException e) {
 			e.printStackTrace();
@@ -143,7 +146,13 @@ public class WxMpServiceInstance {
 		// 拦截内容为menu的消息
 		wxMpMessageRouter.rule().async(false).content("menu").handler(handler).end();
 	}
-
+	// 下载图片
+	public File downloadImage(String s) throws WxErrorException{
+		//9PxNKlEKWXokU5QpHcyVKxe8-CxMlLlOClQmM6iwicnkttNuP4VDv0YMBPvzxm83
+		File f = wxMpService.mediaDownload(s);
+		System.out.println(f.toPath());
+		return f;
+	}
 	public void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String signature = request.getParameter("signature");
 		String nonce = request.getParameter("nonce");
